@@ -11,7 +11,7 @@ const FooterStats = () => {
 
   const priorityCount = useMemo(() => {
     const high = pendingWatchList.filter(
-      (movie) => movie.priority === "high",
+      (movie) => !movie.watched && movie.priority === "high",
     ).length;
 
     const medium = pendingWatchList.filter(

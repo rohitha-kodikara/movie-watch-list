@@ -75,7 +75,12 @@ const initialState = {
     },
   ],
   pendingWatchList: [],
-  filter: "all",
+  filterTabs: [
+    { id: 1, name: "All", isActive: true },
+    { id: 2, name: "Unwatched", isActive: false },
+    { id: 3, name: "Watched", isActive: false },
+  ],
+
   progress: 0,
 };
 
@@ -94,10 +99,11 @@ const watchListSlice = createSlice({
         state.pendingWatchList.unshift({
           ...movie,
           priority: "medium",
+          watched: false,
         });
-        state.browse = state.browse.map((m) =>
-          m.id === movie.id ? { ...m, added: true } : m,
-        );
+        // state.browse = state.browse.map((m) =>
+        //   m.id === movie.id ? { ...m, added: true } : m,
+        // );
       }
     },
     //update priority of a movie in the watchlist
@@ -147,6 +153,15 @@ const watchListSlice = createSlice({
         }
       },
     },
+    //filter watchlist based on the selected tab
+    filterWatchlist: (state, action) => {
+      const tabId = action.payload;
+      state.filterTabs = state.filterTabs.map((tab) =>
+        tab.id === tabId
+          ? { ...tab, isActive: true }
+          : { ...tab, isActive: false },
+      );
+    },
   },
 });
 
@@ -156,6 +171,7 @@ export const {
   updatePriority,
   removeFromWatchList,
   setWatchedStatus,
+  filterWatchlist,
 } = watchListSlice.actions;
 
 // Export the reducer

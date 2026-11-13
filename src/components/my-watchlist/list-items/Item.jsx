@@ -8,13 +8,9 @@ import {
 } from "../../../features/watchlist/watchListSlice";
 
 const Item = ({ movie }) => {
-  const [priority, setPriority] = useState(movie.priority);
-  const [isChecked, setIsChecked] = useState(false);
-
   const dispatch = useDispatch();
 
   function handleUpdatePriority(newPriority, movieId) {
-    setPriority((prev) => (prev == newPriority ? prev : newPriority));
     dispatch(updatePriority(movieId, newPriority));
   }
 
@@ -22,8 +18,7 @@ const Item = ({ movie }) => {
     dispatch(removeFromWatchList(movieId));
   }
 
-  function handleCheck(checked, movieId) {
-    setIsChecked((prev) => !prev);
+  function handleWatchedStatusChange(movieId, checked) {
     dispatch(setWatchedStatus(movieId, checked));
   }
 
@@ -35,8 +30,10 @@ const Item = ({ movie }) => {
       <div className="flex items-start justify-between gap-2">
         <label className="flex items-start gap-3">
           <input
-            checked={isChecked}
-            onChange={(e) => handleCheck(e.target.checked, movie.id)}
+            checked={movie.watched}
+            onChange={(e) =>
+              handleWatchedStatusChange(movie.id, e.target.checked)
+            }
             type="checkbox"
             className="mt-1 h-4 w-4 accent-indigo-600"
           />
@@ -64,7 +61,7 @@ const Item = ({ movie }) => {
       <div className="mt-3 flex items-center justify-between pl-7">
         <span className="text-xs font-medium text-slate-500">Priority</span>
         <select
-          value={priority}
+          value={movie.priority}
           onChange={(e) => handleUpdatePriority(e.target.value, movie.id)}
           className={`rounded-full px-3 py-1 text-xs font-semibold capitalize ring-1 outline-none `}
         >
