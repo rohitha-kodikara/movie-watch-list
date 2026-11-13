@@ -1,10 +1,10 @@
-import React from "react";
+import Button from "../../ui/Button";
 
 const FilterTab = () => {
   return (
-    <button className="rounded-lg bg-white py-1.5 text-slate-900 shadow">
+    <Button bgColor="bg-white" className="rounded-lg  py-1.5 shadow">
       All
-    </button>
+    </Button>
     // <button className="rounded-lg py-1.5 text-slate-500 hover:text-slate-800">
     //   Unwatched
     // </button>

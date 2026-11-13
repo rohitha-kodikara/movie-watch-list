@@ -1,4 +1,4 @@
-import React from "react";
+import Button from "../../ui/Button";
 
 const Movie = ({ movie }) => {
   return (
@@ -21,12 +21,12 @@ const Movie = ({ movie }) => {
           </span>
           <span className="text-slate-400">{movie.year}</span>
         </div>
-        <button
+        <Button
           disabled={movie.added}
-          className="mt-4 w-full rounded-lg bg-indigo-600 py-2 text-sm font-semibold text-white shadow transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-500 disabled:shadow-none"
+          className="mt-4 w-full rounded-lg py-2 text-sm font-semibold text-white shadow transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-500 disabled:shadow-none"
         >
           {movie.added ? "Added ✓" : "+ Add to Watchlist"}
-        </button>
+        </Button>
       </div>
     </div>
   );
