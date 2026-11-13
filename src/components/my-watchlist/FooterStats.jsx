@@ -1,31 +1,33 @@
-import React from "react";
+import React, { useMemo } from "react";
 import Stat from "./Stat";
-
-const statInformation = [
-  {
-    id: 1,
-    bgColor: "bg-emerald-100",
-    statCount: "1",
-    statLabel: "High priority left",
-    textColor: "text-emerald-600",
-  },
-  {
-    id: 2,
-    bgColor: "bg-amber-100",
-    statCount: "2",
-    statLabel: "Medium priority left",
-    textColor: "text-amber-600",
-  },
-];
+import { useSelector } from "react-redux";
 
 const FooterStats = () => {
+  const statsInfo = useSelector((state) => state.watchlist.statInformation);
+
+  const pendingWatchList = useSelector(
+    (state) => state.watchlist.pendingWatchList,
+  );
+
+  const priorityCount = useMemo(() => {
+    const high = pendingWatchList.filter(
+      (movie) => movie.priority === "high",
+    ).length;
+
+    const medium = pendingWatchList.filter(
+      (movie) => movie.priority === "medium",
+    ).length;
+
+    return { high, medium };
+  }, [pendingWatchList]);
+
   return (
     <div className="mt-5 grid grid-cols-2 gap-3 border-t pt-4 text-center">
-      {statInformation.map((stat) => (
+      {statsInfo.map((stat) => (
         <Stat
           key={stat.id}
           bgColor={stat.bgColor}
-          statCount={stat.statCount}
+          statCount={priorityCount[stat.prefix]}
           statLabel={stat.statLabel}
           textColor={stat.textColor}
         />

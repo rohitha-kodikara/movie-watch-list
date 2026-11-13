@@ -18,7 +18,7 @@ const MyWatchList = ({ watchlist, priorityStyles }) => {
       </div>
 
       {/* Items */}
-      <ListItems watchlist={watchlist} priorityStyles={priorityStyles} />
+      <ListItems watchlist={watchlist} />
 
       {/* Footer stats */}
       <FooterStats />

@@ -1,10 +1,14 @@
 import Item from "./Item";
 
-const ListItems = ({ watchlist, priorityStyles }) => {
+const ListItems = ({ watchlist, handleAddToWatchList }) => {
   return (
     <ul className="space-y-3">
-      {watchlist.map((m) => (
-        <Item key={m.id} m={m} priorityStyles={priorityStyles} />
+      {watchlist.map((movieItem) => (
+        <Item
+          key={movieItem.id}
+          movie={movieItem}
+          handleAddToWatchList={handleAddToWatchList}
+        />
       ))}
     </ul>
   );

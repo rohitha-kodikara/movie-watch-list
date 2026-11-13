@@ -1,7 +1,15 @@
 import React from "react";
 import Movie from "./Movie";
+import { useDispatch } from "react-redux";
+import { addToWatchList } from "../../features/watchlist/watchListSlice";
 
 const BrowseMovies = ({ browse }) => {
+  const dispatch = useDispatch();
+
+  function handleAddToWatchList(movie) {
+    dispatch(addToWatchList(movie));
+  }
+
   return (
     <section>
       <div className="mb-5">
@@ -13,7 +21,11 @@ const BrowseMovies = ({ browse }) => {
 
       <div className="grid grid-cols-2 gap-5 sm:grid-cols-3">
         {browse.map((movie) => (
-          <Movie key={movie.id} movie={movie} />
+          <Movie
+            key={movie.id}
+            movie={movie}
+            handleAddToWatchList={handleAddToWatchList}
+          />
         ))}
       </div>
     </section>
